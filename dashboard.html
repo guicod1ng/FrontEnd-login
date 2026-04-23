@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Meus Clientes</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <main>
+    <h2><i class="fas fa-users"></i> Meus Clientes</h2>
+    <button id="btn-sair"><i class="fas fa-sign-out-alt"></i> Sair</button>
+
+    <div id="mensagem" class="api-mensagem hidden"></div>
+
+    <form id="cliente-form">
+      <input type="hidden" id="cliente-id">
+      <input type="text" id="cliente-nome" placeholder="Nome" required>
+      <input type="text" id="cliente-telefone" placeholder="Telefone" required>
+      <button type="submit"><i class="fas fa-plus"></i> Adicionar</button>
+    </form>
+
+    <ul id="lista-clientes"></ul>
+  </main>
+  <script src="dashboard.js"></script>
+</body>
+</html>
