@@ -32,11 +32,13 @@ Repositório: https://github.com/guicod1ng/API-Node-POstgreSQL
 
 ```bash
 frontend-login/
-├── index.html        # Login e registro
-├── dashboard.html    # Painel de clientes
-├── style.css         # Estilização (tema escuro)
-├── script.js         # Autenticação
-└── dashboard.js      # CRUD via API
+├── index.html            → Login e Registro
+├── dashboard.html        → CRUD de Clientes
+├── agendamentos.html     → CRUD de Agendamentos
+├── style.css             → Tema escuro responsivo
+├── script.js             → Conexão API (auth)
+├── dashboard.js          → Conexão API (clientes)
+└── agendamentos.js       → Conexão API (agendamentos)
 ```
 
 ---
