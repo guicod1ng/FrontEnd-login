@@ -8,7 +8,7 @@ Interface web para gerenciamento de clientes e agendamentos, integrada a API RES
 
 ### Dashboard
 
-![Dashboard](./assets/dashbord.png.png)
+![Dashboard](./assets/dashboard.png.png)
 
 ### Agendamentos
 
