@@ -1,22 +1,18 @@
 const API_URL = 'https://api-clientes-jqkq.onrender.com';
 const token = localStorage.getItem('token');
 
-if (!token) {
-  window.location.href = 'index.html';
-}
+if (!token) window.location.href = 'index.html';
 
-// Sair
 document.getElementById('btn-sair').addEventListener('click', () => {
   localStorage.removeItem('token');
   window.location.href = 'index.html';
 });
 
-// Ir para clientes
-document.getElementById('btn-clientes').addEventListener('click', () => {
-  window.location.href = 'dashboard.html';
-});
+function loading(ativo) {
+  document.getElementById('btn-texto').classList.toggle('d-none', ativo);
+  document.getElementById('btn-loading').classList.toggle('d-none', !ativo);
+}
 
-// Carregar clientes no select
 async function carregarClientes() {
   const resposta = await fetch(API_URL + '/clientes', {
     headers: { 'Authorization': 'Bearer ' + token }
@@ -24,14 +20,10 @@ async function carregarClientes() {
   const clientes = await resposta.json();
   const select = document.getElementById('cliente-id');
   clientes.forEach(c => {
-    const option = document.createElement('option');
-    option.value = c.id;
-    option.textContent = c.nome;
-    select.appendChild(option);
+    select.innerHTML += `<option value="${c.id}">${c.nome}</option>`;
   });
 }
 
-// Listar agendamentos
 async function listarAgendamentos() {
   const resposta = await fetch(API_URL + '/agendamentos', {
     headers: { 'Authorization': 'Bearer ' + token }
@@ -41,20 +33,25 @@ async function listarAgendamentos() {
   lista.innerHTML = '';
 
   agendamentos.forEach(a => {
-    const item = document.createElement('li');
-    item.textContent = `${a.data} ${a.hora} - ${a.cliente_nome} - ${a.servico}`;
-
-    const btnExcluir = document.createElement('button');
-    btnExcluir.innerHTML = '<i class="fas fa-trash"></i>';
-    btnExcluir.title = 'Cancelar';
-    btnExcluir.addEventListener('click', () => excluirAgendamento(a.id));
-
-    item.appendChild(btnExcluir);
-    lista.appendChild(item);
+    lista.innerHTML += `
+      <div class="col-md-4">
+        <div class="card bg-secondary text-white shadow">
+          <div class="card-body">
+            <h5 class="card-title">${a.servico}</h5>
+            <p class="card-text">
+              <i class="bi bi-person"></i> ${a.cliente_nome}<br>
+              <i class="bi bi-calendar"></i> ${a.data}<br>
+              <i class="bi bi-clock"></i> ${a.hora}
+            </p>
+            <button class="btn btn-sm btn-danger" onclick="excluirAgendamento(${a.id})">
+              <i class="bi bi-trash"></i> Cancelar
+            </button>
+          </div>
+        </div>
+      </div>`;
   });
 }
 
-// Criar agendamento
 document.getElementById('agendamento-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const cliente_id = document.getElementById('cliente-id').value;
@@ -62,6 +59,7 @@ document.getElementById('agendamento-form').addEventListener('submit', async (e)
   const hora = document.getElementById('hora').value;
   const servico = document.getElementById('servico').value;
 
+  loading(true);
   await fetch(API_URL + '/agendamentos', {
     method: 'POST',
     headers: {
@@ -70,12 +68,11 @@ document.getElementById('agendamento-form').addEventListener('submit', async (e)
     },
     body: JSON.stringify({ cliente_id, data, hora, servico })
   });
-
-  this.reset();
+  loading(false);
+  e.target.reset();
   listarAgendamentos();
 });
 
-// Excluir agendamento
 async function excluirAgendamento(id) {
   await fetch(API_URL + '/agendamentos/' + id, {
     method: 'DELETE',

@@ -4,30 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agendamentos</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
-<body>
-  <main>
-    <h2><i class="fas fa-calendar-alt"></i> Agendamentos</h2>
-    <button id="btn-sair"><i class="fas fa-sign-out-alt"></i> Sair</button>
-    <button id="btn-clientes"><i class="fas fa-users"></i> Clientes</button>
+<body class="bg-dark text-white" style="min-height: 100vh;">
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2><i class="bi bi-calendar-check"></i> Agendamentos</h2>
+      <div>
+        <a href="dashboard.html" class="btn btn-outline-info me-2"><i class="bi bi-people"></i> Clientes</a>
+        <button id="btn-sair" class="btn btn-outline-danger"><i class="bi bi-box-arrow-right"></i> Sair</button>
+      </div>
+    </div>
 
-    <div id="mensagem" class="api-mensagem hidden"></div>
+    <div id="mensagem" class="alert d-none"></div>
 
-    <form id="agendamento-form">
-      <input type="hidden" id="agendamento-id">
-      <select id="cliente-id" required>
-        <option value="">Selecione um cliente</option>
-      </select>
-      <input type="date" id="data" required>
-      <input type="time" id="hora" required>
-      <input type="text" id="servico" placeholder="Serviço" required>
-      <button type="submit"><i class="fas fa-plus"></i> Agendar</button>
-    </form>
+    <div class="card bg-secondary text-white mb-4 shadow">
+      <div class="card-body">
+        <form id="agendamento-form" class="row g-2">
+          <div class="col-md-3">
+            <select id="cliente-id" class="form-select" required>
+              <option value="">Cliente</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <input type="date" id="data" class="form-control" required>
+          </div>
+          <div class="col-md-2">
+            <input type="time" id="hora" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <input type="text" id="servico" class="form-control" placeholder="Serviço" required>
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">
+              <span id="btn-texto"><i class="bi bi-plus-lg"></i> Agendar</span>
+              <span id="btn-loading" class="spinner-border spinner-border-sm d-none"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
-    <ul id="lista-agendamentos"></ul>
-  </main>
+    <div id="lista-agendamentos" class="row g-3"></div>
+  </div>
   <script src="agendamentos.js"></script>
 </body>
 </html>

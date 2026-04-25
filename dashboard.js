@@ -1,23 +1,24 @@
 const API_URL = 'https://api-clientes-jqkq.onrender.com';
 const token = localStorage.getItem('token');
 
-// Se não tiver token, volta para o login
-if (!token) {
-  window.location.href = 'index.html';
-}
+if (!token) window.location.href = 'index.html';
 
-// Sair
-document.getElementById('btn-sair').addEventListener('click', function() {
+document.getElementById('btn-sair').addEventListener('click', () => {
   localStorage.removeItem('token');
   window.location.href = 'index.html';
 });
 
-// Ir para agendamentos
-document.getElementById('btn-agendamentos').addEventListener('click', function() {
-  window.location.href = 'agendamentos.html';
-});
+function mostrarMensagem(texto, tipo) {
+  const m = document.getElementById('mensagem');
+  m.textContent = texto;
+  m.className = `alert alert-${tipo}`;
+}
 
-// Listar clientes
+function loading(ativo) {
+  document.getElementById('btn-texto').classList.toggle('d-none', ativo);
+  document.getElementById('btn-loading').classList.toggle('d-none', !ativo);
+}
+
 async function listarClientes() {
   try {
     const resposta = await fetch(API_URL + '/clientes', {
@@ -28,65 +29,61 @@ async function listarClientes() {
     lista.innerHTML = '';
 
     clientes.forEach(cliente => {
-      const item = document.createElement('li');
-      item.textContent = cliente.nome + ' - ' + cliente.telefone;
-
-      const btnEditar = document.createElement('button');
-      btnEditar.innerHTML = '<i class="fas fa-pen"></i>';
-      btnEditar.title = 'Editar';
-      btnEditar.addEventListener('click', () => {
-        document.getElementById('cliente-id').value = cliente.id;
-        document.getElementById('cliente-nome').value = cliente.nome;
-        document.getElementById('cliente-telefone').value = cliente.telefone;
-      });
-
-      const btnExcluir = document.createElement('button');
-      btnExcluir.innerHTML = '<i class="fas fa-trash"></i>';
-      btnExcluir.title = 'Excluir';
-      btnExcluir.addEventListener('click', () => excluirCliente(cliente.id));
-
-      item.appendChild(btnEditar);
-      item.appendChild(btnExcluir);
-      lista.appendChild(item);
+      lista.innerHTML += `
+        <div class="col-md-4">
+          <div class="card bg-secondary text-white shadow">
+            <div class="card-body">
+              <h5 class="card-title">${cliente.nome}</h5>
+              <p class="card-text"><i class="bi bi-telephone"></i> ${cliente.telefone}</p>
+              <button class="btn btn-sm btn-warning me-1" onclick="editarCliente(${cliente.id}, '${cliente.nome}', '${cliente.telefone}')">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="excluirCliente(${cliente.id})">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>`;
     });
   } catch (erro) {
-    console.log('Erro ao listar:', erro);
+    console.log('Erro:', erro);
   }
 }
 
-// Criar ou Atualizar cliente
-document.getElementById('cliente-form').addEventListener('submit', async function(e) {
+function editarCliente(id, nome, telefone) {
+  document.getElementById('cliente-id').value = id;
+  document.getElementById('cliente-nome').value = nome;
+  document.getElementById('cliente-telefone').value = telefone;
+  document.getElementById('btn-texto').innerHTML = '<i class="bi bi-check-lg"></i> Atualizar';
+}
+
+document.getElementById('cliente-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const id = document.getElementById('cliente-id').value;
   const nome = document.getElementById('cliente-nome').value;
   const telefone = document.getElementById('cliente-telefone').value;
+  const metodo = id ? 'PUT' : 'POST';
+  const url = id ? API_URL + '/clientes/' + id : API_URL + '/clientes';
 
-  if (id) {
-    await fetch(API_URL + '/clientes/' + id, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify({ nome, telefone })
-    });
+  loading(true);
+  const resposta = await fetch(url, {
+    method: metodo,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify({ nome, telefone })
+  });
+
+  if (resposta.ok) {
     document.getElementById('cliente-id').value = '';
-  } else {
-    await fetch(API_URL + '/clientes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      },
-      body: JSON.stringify({ nome, telefone })
-    });
+    document.getElementById('btn-texto').innerHTML = '<i class="bi bi-plus-lg"></i> Adicionar';
   }
-
-  this.reset();
+  loading(false);
+  e.target.reset();
   listarClientes();
 });
 
-// Excluir cliente
 async function excluirCliente(id) {
   await fetch(API_URL + '/clientes/' + id, {
     method: 'DELETE',
@@ -95,5 +92,4 @@ async function excluirCliente(id) {
   listarClientes();
 }
 
-// Carregar lista ao iniciar
 listarClientes();

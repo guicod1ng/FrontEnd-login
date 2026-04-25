@@ -1,30 +1,46 @@
-# 🖥️ Front-end - Dashboard de Clientes
+# 🖥️ Sistema de Agendamento
 
-Interface web para consumo de API REST com autenticação JWT, permitindo gerenciamento completo de clientes.
+Interface web para gerenciamento de clientes e agendamentos, integrada a API REST com autenticação JWT.
+
+---
+
+## 📸 Preview
+
+### Dashboard
+
+![Dashboard](./assets/dashbord.png)
+
+### Agendamentos
+
+![Agendamentos](./assets/agendamentos.png)
+
+---
+
+🌐 **Acesse online:** https://guicod1ng.github.io/FrontEnd-login
 
 ---
 
 ## ⚙️ Stack
 
-HTML • CSS • JavaScript (Vanilla) • Font Awesome
+HTML • CSS (Bootstrap 5) • JavaScript • Bootstrap Icons
 
 ---
 
 ## 📌 Funcionalidades
 
-* Registro e login com JWT
+* Autenticação com JWT (registro e login)
 * Proteção de rotas (sem token → redirecionamento)
-* CRUD completo de clientes
-* Logout
-* Layout responsivo e interativo
+* CRUD de clientes
+* CRUD de agendamentos vinculados a clientes
+* Indicadores de loading
+* Interface responsiva (desktop e mobile)
 
 ---
 
 ## 🔗 Integração com API
 
 API: https://api-clientes-xxxx.onrender.com
-
-Repositório: https://github.com/guicod1ng/API-Node-POstgreSQL
+Repositório: https://guicod1ng.github.io/FrontEnd-login
 
 ---
 
@@ -32,34 +48,31 @@ Repositório: https://github.com/guicod1ng/API-Node-POstgreSQL
 
 ```bash
 frontend-login/
-├── index.html            → Login e Registro
-├── dashboard.html        → CRUD de Clientes
-├── agendamentos.html     → CRUD de Agendamentos
-├── style.css             → Tema escuro responsivo
-├── script.js             → Conexão API (auth)
-├── dashboard.js          → Conexão API (clientes)
-└── agendamentos.js       → Conexão API (agendamentos)
+├── index.html        # Login e registro
+├── dashboard.html    # Painel de clientes
+├── style.css         # Estilização (tema escuro)
+├── script.js         # Autenticação
+└── dashboard.js      # CRUD via API
 ```
 
 ---
 
 ## 🚀 Como usar
 
-1. Abra o `index.html` no navegador
-2. Registre um usuário ou faça login
-3. Acesse o dashboard para gerenciar clientes
+1. Acesse o link do projeto
+2. Crie uma conta ou faça login
+3. Gerencie clientes e agendamentos
 
 ---
 
 ## 🚧 Melhorias futuras
 
-* Página de agendamentos
-* Feedback visual (loading e validações)
-* Tema claro/escuro
-* Deploy (GitHub Pages ou Vercel)
+* Validação de formulários com feedback visual
+* Filtros e busca de agendamentos
+* Dashboard com métricas
 
 ---
 
 ## 💡 Sobre
 
-Projeto front-end desenvolvido para integração com API própria, focado em autenticação, consumo de dados e organização de interface.
+Projeto full-stack desenvolvido do zero, focado em autenticação, consumo de API e organização de interface.
