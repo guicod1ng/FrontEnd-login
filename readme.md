@@ -8,11 +8,11 @@ Interface web para gerenciamento de clientes e agendamentos, integrada a API RES
 
 ### Dashboard
 
-![Dashboard](./assets/dashbord.png)
+![Dashboard](./assets/dashbord.png.png)
 
 ### Agendamentos
 
-![Agendamentos](./assets/agendamentos.png)
+![Agendamentos](./assets/agendamentos.png.png)
 
 ---
 
@@ -40,7 +40,7 @@ HTML • CSS (Bootstrap 5) • JavaScript • Bootstrap Icons
 ## 🔗 Integração com API
 
 API: https://api-clientes-xxxx.onrender.com
-Repositório: https://guicod1ng.github.io/FrontEnd-login
+Repositório: https://github.com/guicod1ng/API-Node-POstgreSQL
 
 ---
 
@@ -48,11 +48,12 @@ Repositório: https://guicod1ng.github.io/FrontEnd-login
 
 ```bash
 frontend-login/
-├── index.html        # Login e registro
-├── dashboard.html    # Painel de clientes
-├── style.css         # Estilização (tema escuro)
-├── script.js         # Autenticação
-└── dashboard.js      # CRUD via API
+├── index.html
+├── dashboard.html
+├── agendamentos.html
+├── script.js
+├── dashboard.js
+└── agendamentos.js
 ```
 
 ---
