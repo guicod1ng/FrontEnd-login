@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamentos</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <main>
+    <h2><i class="fas fa-calendar-alt"></i> Agendamentos</h2>
+    <button id="btn-sair"><i class="fas fa-sign-out-alt"></i> Sair</button>
+    <button id="btn-clientes"><i class="fas fa-users"></i> Clientes</button>
+
+    <div id="mensagem" class="api-mensagem hidden"></div>
+
+    <form id="agendamento-form">
+      <input type="hidden" id="agendamento-id">
+      <select id="cliente-id" required>
+        <option value="">Selecione um cliente</option>
+      </select>
+      <input type="date" id="data" required>
+      <input type="time" id="hora" required>
+      <input type="text" id="servico" placeholder="Serviço" required>
+      <button type="submit"><i class="fas fa-plus"></i> Agendar</button>
+    </form>
+
+    <ul id="lista-agendamentos"></ul>
+  </main>
+  <script src="agendamentos.js"></script>
+</body>
+</html>

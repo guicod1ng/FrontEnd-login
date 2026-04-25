@@ -12,6 +12,11 @@ document.getElementById('btn-sair').addEventListener('click', function() {
   window.location.href = 'index.html';
 });
 
+// Ir para agendamentos
+document.getElementById('btn-agendamentos').addEventListener('click', function() {
+  window.location.href = 'agendamentos.html';
+});
+
 // Listar clientes
 async function listarClientes() {
   try {
